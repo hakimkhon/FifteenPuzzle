@@ -23,51 +23,52 @@ public class MainActivity extends AppCompatActivity {
     List<Integer> numbers = new ArrayList<>();
     int x, y, counter = 1;
     Button emptyBtn;
-    private ClassLoader contextInstance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-//        emptyBtn = binding.btn0;
+        load();
         generateNumbers();
-//        x = binding.gridLayout.getChildAt(15).getTag().toString().charAt(0) - '0';
-//        y = binding.gridLayout.getChildAt(15).getTag().toString().charAt(1) - '0';
     }
-    private void generateNumbers(){
+    private void load(){
         for (int i = 1; i <= 16; i++){
             numbers.add(i);
         }
-//        Collections.shuffle(numbers);
-        for (int i = 0; i <= binding.gridLayout.getChildCount()-1; i++){
-            if (numbers.get(i) != 16) {
-                ((Button) binding.gridLayout.getChildAt(i)).setText(String.valueOf(numbers.get(i)));
+    }
+    private void generateNumbers(){
+        do {
+            Collections.shuffle(numbers);
+        }
+        while (!isSolvable(numbers));
+        for (int i = 0; i < binding.gridLayout.getChildCount(); i++){
+            if (numbers.get(i) == 16) {
+                String tag = binding.gridLayout.getChildAt(i).getTag().toString();
+                x = tag.charAt(0) - '0';
+                y = tag.charAt(1) - '0';
+                ((Button) binding.gridLayout.getChildAt(i)).setText("");
+                emptyBtn = ((Button) binding.gridLayout.getChildAt(i));
+                emptyBtn.setVisibility(View.INVISIBLE);
             }
             else {
-
-                // i == 16 katakchani bo'sh qoldirish
-                ((Button) binding.gridLayout.getChildAt(i)).setText("");
-                // bo'sh katakni tag ni topish, uni x va y ga o'zlashtirish
-                emptyBtn = ((Button) binding.gridLayout.getChildAt(i));
-
-//                binding.gridLayout.getChildAt(i).setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
-                x = binding.gridLayout.getChildAt(i).getTag().toString().charAt(0) - '0';
-                y = binding.gridLayout.getChildAt(i).getTag().toString().charAt(1) - '0';
+                ((Button) binding.gridLayout.getChildAt(i)).setText(String.valueOf(numbers.get(i)));
             }
         }
-        if (!isSolvable())
-            generateNumbers();
     }
-    private boolean isSolvable(){
-        int countInversion = 0;
-        for (int i = 0; i < 15; i++){
-            for (int j = 0; j < i; j++){
-                if (numbers.get(j) > numbers.get(i))
-                    countInversion++;
+    private boolean isSolvable(List<Integer> numbers){
+        int counter = 0;
+        for (int i = 0; i < numbers.size(); i++){
+            if (numbers.get(i) == 16){
+                counter += (i % 4 + 1);
+                continue;
+            }
+            for (int j = i + 1; j < numbers.size(); j++){
+                if (numbers.get(i) > numbers.get(j))
+                    counter++;
             }
         }
-        return countInversion % 2 == 0;
+        return counter % 2 == 0;
     }
     private boolean canMove(int clickedX, int clickedY){
         return Math.abs((clickedX + clickedY) - (x + y)) == 1 && Math.abs(clickedX - x) != 2 && Math.abs(clickedY - y) != 2;
@@ -87,35 +88,18 @@ public class MainActivity extends AppCompatActivity {
     private void swap(int clickedX, int clickedY, Button clicked){
         String text = clicked.getText().toString();
         clicked.setText("");
+        clicked.setVisibility(View.INVISIBLE);
+        emptyBtn.setVisibility(View.VISIBLE);
         emptyBtn.setText(text);
         emptyBtn = clicked;
         x = clickedX;
         y = clickedY;
     }
     public void reStart(View view){
-
-        Collections.shuffle(numbers);
-        for (int i = 0; i <= binding.gridLayout.getChildCount()-1; i++){
-            if (numbers.get(i) != 16) {
-                ((Button) binding.gridLayout.getChildAt(i)).setText(String.valueOf(numbers.get(i)));
-            }
-            else {
-
-                // i == 16 katakchani bo'sh qoldirish
-                ((Button) binding.gridLayout.getChildAt(i)).setText("");
-                // bo'sh katakni tag ni topish, uni x va y ga o'zlashtirish
-                emptyBtn = ((Button) binding.gridLayout.getChildAt(i));
-//                binding.gridLayout.getChildAt(i).setBackgroundResource(R.drawable.color);
-                x = binding.gridLayout.getChildAt(i).getTag().toString().charAt(0) - '0';
-                y = binding.gridLayout.getChildAt(i).getTag().toString().charAt(1) - '0';
-            }
-        }
-
-//                if (numbers.get(i) != 16) {
-//                }
-//                else ((Button) binding.gridLayout.getChildAt(i)).setText("");
-
+        emptyBtn.setVisibility(View.VISIBLE);
+        generateNumbers();
     }
+
     public void onClick(View view){
         counter = 1;
         Button clicked = (Button) view;

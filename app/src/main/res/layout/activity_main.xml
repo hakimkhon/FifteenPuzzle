@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="4sp"
+    android:background="@drawable/tabiat"
     tools:context=".MainActivity">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,14 +21,16 @@
 <!--            android:text="boshlash"-->
 <!--            />-->
     </RelativeLayout>
-
-
     <GridLayout
         android:id="@+id/gridLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="10dp"
-        android:paddingRight="8dp"
+        android:paddingRight="12dp"
+        android:paddingLeft="4dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:background="@drawable/border"
         android:layout_weight="2.8">
         <Button
             android:id="@+id/btn1"
