@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     List<Integer> numbers = new ArrayList<>();
     int x, y, move, counter = 1;
+    long timeWhenStopped = 0;
     Button emptyBtn;
 
     @Override
@@ -118,9 +119,14 @@ public class MainActivity extends AppCompatActivity {
         colorButtons();
         updateMove(move);
     }
+    public void pause(View view){
+        timeWhenStopped = binding.chronometer.getBase() - SystemClock.elapsedRealtime();
+        binding.chronometer.stop();
+    }
 
     public void onClick(View view){
         counter = 1;
+        binding.chronometer.start();
         Button clicked = (Button) view;
         String tag = view.getTag().toString();
         int clickedX = tag.charAt(0) - '0';
