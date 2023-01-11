@@ -3,7 +3,9 @@ package uz.hakimkhon.puzzle15;
 import static uz.hakimkhon.puzzle15.R.*;
 
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -21,7 +23,7 @@ import uz.hakimkhon.puzzle15.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     List<Integer> numbers = new ArrayList<>();
-    int x, y, counter = 1;
+    int x, y, move, counter = 1;
     Button emptyBtn;
 
     @Override
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         load();
         generateNumbers();
+        colorButtons();
     }
     private void load(){
         for (int i = 1; i <= 16; i++){
@@ -38,10 +41,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void generateNumbers(){
+        move = 0;
+        binding.chronometer.setBase(SystemClock.elapsedRealtime());
+        binding.chronometer.stop();
+        binding.chronometer.start();
         do {
             Collections.shuffle(numbers);
-        }
-        while (!isSolvable(numbers));
+        } while (!isSolvable(numbers));
         for (int i = 0; i < binding.gridLayout.getChildCount(); i++){
             if (numbers.get(i) == 16) {
                 String tag = binding.gridLayout.getChildAt(i).getTag().toString();
@@ -60,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         int counter = 0;
         for (int i = 0; i < numbers.size(); i++){
             if (numbers.get(i) == 16){
-                counter += (i % 4 + 1);
+                counter += (i / 4 + 1);
                 continue;
             }
             for (int j = i + 1; j < numbers.size(); j++){
@@ -74,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         return Math.abs((clickedX + clickedY) - (x + y)) == 1 && Math.abs(clickedX - x) != 2 && Math.abs(clickedY - y) != 2;
     }
     private boolean gameOver(){
+        colorButtons();
         for (int i = 0; i <= 15; i++){
             Button checker = (Button) binding.gridLayout.getChildAt(i);
             if (checker.getText().toString().isEmpty()) break;
@@ -84,6 +91,16 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return false;
+    }
+    private void colorButtons(){
+        for (int i = 0; i <= 15; i++){
+            Button checker = (Button) binding.gridLayout.getChildAt(i);
+            if (checker.getText().toString().equals(String.valueOf(i+1))){
+                binding.gridLayout.getChildAt(i).setBackgroundColor(Color.parseColor("#ADFF2F"));
+            }
+            else
+                binding.gridLayout.getChildAt(i).setBackgroundColor(Color.parseColor("#FAEBD7"));
+        }
     }
     private void swap(int clickedX, int clickedY, Button clicked){
         String text = clicked.getText().toString();
@@ -98,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
     public void reStart(View view){
         emptyBtn.setVisibility(View.VISIBLE);
         generateNumbers();
+        colorButtons();
+        updateMove(move);
     }
 
     public void onClick(View view){
@@ -107,10 +126,20 @@ public class MainActivity extends AppCompatActivity {
         int clickedX = tag.charAt(0) - '0';
         int clickedY = tag.charAt(1) - '0';
         if (canMove(clickedX, clickedY)){
+            updateMove();
             swap(clickedX,clickedY,clicked);
         }
         if (gameOver()){
             Toast.makeText(this, "Siz g'olibsiz", Toast.LENGTH_SHORT).show();
+            binding.chronometer.stop();
+
         }
+    }
+    private void updateMove(){
+        move++;
+        binding.textMove.setText(String.valueOf(move));
+    }
+    private void updateMove(int move){
+        binding.textMove.setText(String.valueOf(move));
     }
 }

@@ -9,7 +9,7 @@
         <item name="android:layout_marginStart">8sp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:backgroundTint">@color/purple_200</item>
+        <item name="android:backgroundTint">@color/antique_white</item>
 
     </style>
     <style name="button_0">
