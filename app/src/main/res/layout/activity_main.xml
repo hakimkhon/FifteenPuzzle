@@ -9,18 +9,7 @@
     android:padding="4sp"
     android:background="@drawable/tabiat"
     tools:context=".MainActivity">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:layout_weight="1">
-<!--        <Button-->
-<!--            android:id="@+id/btnStart"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="boshlash"-->
-<!--            />-->
-    </RelativeLayout>
+
     <GridLayout
         android:id="@+id/gridLayout"
         android:layout_width="match_parent"
@@ -30,7 +19,6 @@
         android:paddingLeft="4dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:background="@drawable/border"
         android:layout_weight="3">
         <Button
             android:id="@+id/btn1"
@@ -166,7 +154,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:layout_weight="0.7">
 
         <TextView
@@ -198,6 +186,7 @@
         android:id="@+id/containerBtn"
         android:layout_width="match_parent"
         android:padding="4sp"
+        android:gravity="center"
         android:layout_height="0dp"
         android:layout_weight="0.5">
 
