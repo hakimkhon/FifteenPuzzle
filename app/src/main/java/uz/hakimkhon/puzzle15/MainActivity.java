@@ -1,8 +1,5 @@
 package uz.hakimkhon.puzzle15;
 
-import static uz.hakimkhon.puzzle15.R.*;
-
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -15,9 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.zip.Inflater;
 
-import kotlin.jvm.internal.CollectionToArray;
 import uz.hakimkhon.puzzle15.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -120,13 +115,56 @@ public class MainActivity extends AppCompatActivity {
         updateMove(move);
     }
     public void pause(View view){
+        if (binding.btnPause.getText().equals("PAUSE")) {
+            timeWhenStopped = binding.chronometer.getBase() - SystemClock.elapsedRealtime();
+            binding.chronometer.stop();
+            binding.btnPause.setText("START");
+        }
+        else if (binding.btnPause.getText().equals("START")) {
+            binding.chronometer.start();
+            binding.btnPause.setText("PAUSE");
+        }
+    }
+
+    //region start_stop
+
+    @Override
+    protected void onStart() {
+        binding.chronometer.stop();
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
         timeWhenStopped = binding.chronometer.getBase() - SystemClock.elapsedRealtime();
         binding.chronometer.stop();
+        super.onStop();
     }
+
+
+    //    public void start() {
+//        setBase(SystemClock.elapsedRealtime()+timeWhenStopped);
+//        super.start();
+//    }
+//
+//    @Override
+//    public void stop() {
+//        super.stop();
+//        timeWhenStopped = getBase() - SystemClock.elapsedRealtime();
+//    }
+
+//    public void reset() {
+//        stop();
+//        setBase(SystemClock.elapsedRealtime());
+//        timeWhenStopped = 0;
+//    }
+    //endregion
+
 
     public void onClick(View view){
         counter = 1;
         binding.chronometer.start();
+        binding.btnPause.setText("PAUSE");
         Button clicked = (Button) view;
         String tag = view.getTag().toString();
         int clickedX = tag.charAt(0) - '0';
