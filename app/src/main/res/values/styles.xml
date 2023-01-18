@@ -29,9 +29,9 @@
         <item name="android:paddingTop">15sp</item>
         <item name="android:paddingBottom">15sp</item>
         <item name="android:paddingLeft">30sp</item>
-        <item name="android:textColor">@color/crimson</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:backgroundTint">@color/navajo_white</item>
+        <item name="android:backgroundTint">@color/aqua_marine</item>
 
     </style>
 </resources>

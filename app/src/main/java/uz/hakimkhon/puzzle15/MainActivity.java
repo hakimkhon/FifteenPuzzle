@@ -1,5 +1,6 @@
 package uz.hakimkhon.puzzle15;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -18,8 +19,9 @@ import uz.hakimkhon.puzzle15.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     List<Integer> numbers = new ArrayList<>();
-    int x, y, move, counter = 1;
-    long timeWhenStopped = 0;
+    int x, y, move = 0, counter = 1;
+    long pauseOffset;
+    boolean running = true;
     Button emptyBtn;
 
     @Override
@@ -73,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         return counter % 2 == 0;
     }
     private boolean canMove(int clickedX, int clickedY){
+        binding.btnRestart.setBackgroundColor(Color.parseColor("#7FFFD4"));
         return Math.abs((clickedX + clickedY) - (x + y)) == 1 && Math.abs(clickedX - x) != 2 && Math.abs(clickedY - y) != 2;
     }
     private boolean gameOver(){
@@ -98,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 binding.gridLayout.getChildAt(i).setBackgroundColor(Color.parseColor("#FAEBD7"));
         }
     }
+    //region swap
     private void swap(int clickedX, int clickedY, Button clicked){
         String text = clicked.getText().toString();
         clicked.setText("");
@@ -108,63 +112,46 @@ public class MainActivity extends AppCompatActivity {
         x = clickedX;
         y = clickedY;
     }
-    public void reStart(View view){
-        emptyBtn.setVisibility(View.VISIBLE);
-        generateNumbers();
-        colorButtons();
-        updateMove(move);
-    }
-    public void pause(View view){
-        if (binding.btnPause.getText().equals("PAUSE")) {
-            timeWhenStopped = binding.chronometer.getBase() - SystemClock.elapsedRealtime();
-            binding.chronometer.stop();
-            binding.btnPause.setText("START");
-        }
-        else if (binding.btnPause.getText().equals("START")) {
-            binding.chronometer.start();
-            binding.btnPause.setText("PAUSE");
-        }
-    }
-
-    //region start_stop
-
-    @Override
-    protected void onStart() {
-        binding.chronometer.stop();
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        timeWhenStopped = binding.chronometer.getBase() - SystemClock.elapsedRealtime();
-        binding.chronometer.stop();
-        super.onStop();
-    }
-
-
-    //    public void start() {
-//        setBase(SystemClock.elapsedRealtime()+timeWhenStopped);
-//        super.start();
-//    }
-//
-//    @Override
-//    public void stop() {
-//        super.stop();
-//        timeWhenStopped = getBase() - SystemClock.elapsedRealtime();
-//    }
-
-//    public void reset() {
-//        stop();
-//        setBase(SystemClock.elapsedRealtime());
-//        timeWhenStopped = 0;
-//    }
     //endregion
-
-
+    //region start_stop_reset
+    public void reStart(View view){
+//        if (move == 0) {
+//        }
+        if (move > 0) {
+            binding.btnRestart.setBackgroundColor(Color.parseColor("#686365"));
+            emptyBtn.setVisibility(View.VISIBLE);
+            generateNumbers();
+            colorButtons();
+            updateMove(move);
+        }
+    }
+    @SuppressLint("SetTextI18n")
+    public void pauseAndStart(View view) {
+        if (running) {
+            binding.btnPause.setText("start");
+            running = false;
+            binding.chronometer.stop();
+            pauseOffset = SystemClock.elapsedRealtime() - binding.chronometer.getBase();
+            binding.btnPause.setBackgroundColor(Color.parseColor("#F08080"));
+        } else {
+            binding.btnPause.setText("pause");
+            binding.btnPause.setBackgroundColor(Color.parseColor("#7FFFD4"));
+            running = true;
+            binding.chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+            binding.chronometer.start();
+        }
+    }
+    //endregion
+    //region onClick
+    @SuppressLint("SetTextI18n")
     public void onClick(View view){
+        if (!running){
+            binding.btnPause.setBackgroundColor(Color.parseColor("#7FFFD4"));
+            binding.chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+            binding.chronometer.start();
+        }
         counter = 1;
-        binding.chronometer.start();
-        binding.btnPause.setText("PAUSE");
+        binding.btnPause.setText("pause");
         Button clicked = (Button) view;
         String tag = view.getTag().toString();
         int clickedX = tag.charAt(0) - '0';
@@ -179,6 +166,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+    //endregion
+    //region update
     private void updateMove(){
         move++;
         binding.textMove.setText(String.valueOf(move));
@@ -186,4 +175,5 @@ public class MainActivity extends AppCompatActivity {
     private void updateMove(int move){
         binding.textMove.setText(String.valueOf(move));
     }
+    //endregion
 }
