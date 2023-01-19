@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:gravity="center"
     android:background="@drawable/tabiat"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:gravity="center"
         android:layout_weight="1">
 
@@ -22,22 +22,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4sp"
             android:textColor="@color/white"
+            android:paddingBottom="30sp"
             android:text="Move: 0"
             android:textSize="24sp"/>
         <Chronometer
             android:id="@+id/chronometer"
-            android:layout_marginStart="50sp"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="30sp"
             android:textStyle="bold"
             android:textSize="24sp"
             android:textColor="@color/white"/>
     </LinearLayout>
     <GridLayout
         android:id="@+id/gridLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:paddingRight="8dp"
         android:layout_weight="3">
         <Button
@@ -170,46 +171,44 @@
             />
 
     </GridLayout>
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/containerBtn"
-        android:layout_width="match_parent"
-        android:padding="10sp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:padding="6sp"
+        android:orientation="vertical"
         android:gravity="center"
-        android:layout_height="0dp"
         android:layout_weight="1">
 
         <Button
             android:id="@+id/btnhome"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             style="@style/btn_click"
+            android:layout_marginBottom="30sp"
             android:text="@string/home"
             tools:ignore="UsingOnClickInXml" />
-
-        <Button
-            android:id="@+id/btnPause"
-            style="@style/btn_click"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/btnhome"
-            android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"
-            android:onClick="pauseAndStart"
-            android:text="@string/pause" />
 
         <Button
             android:id="@+id/btnRestart"
             android:onClick="reStart"
             android:backgroundTint="#686365"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/btn_click"
-            android:layout_centerHorizontal="true"
             android:layout_alignBaseline="@id/btnhome"
             android:text="@string/reset" />
+        <Button
+            android:id="@+id/btnPause"
+            style="@style/btn_click"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30sp"
+            android:layout_alignBaseline="@id/btnhome"
+            android:onClick="pauseAndStart"
+            android:text="@string/pause" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

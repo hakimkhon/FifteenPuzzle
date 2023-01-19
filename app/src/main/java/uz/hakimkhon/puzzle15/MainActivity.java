@@ -170,10 +170,10 @@ public class MainActivity extends AppCompatActivity {
     //region update
     private void updateMove(){
         move++;
-        binding.textMove.setText(String.valueOf(move));
+        binding.textMove.setText("Move: " + move);
     }
-    private void updateMove(int move){
-        binding.textMove.setText(String.valueOf(move));
+    private void updateMove(int n){
+        binding.textMove.setText("Move: " + n);
     }
     //endregion
 }
