@@ -19,7 +19,7 @@ import uz.hakimkhon.puzzle15.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     List<Integer> numbers = new ArrayList<>();
-    int x, y, move = 0, counter = 1;
+    int emptyBtnIndexX, emptyBtnIndexY, move = 0, counter = 1;
     long pauseOffset;
     boolean running = true;
     Button emptyBtn;
@@ -29,16 +29,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        load();
+        loadNumbers();
         generateNumbers();
         colorButtons();
     }
-    private void load(){
+    private void loadNumbers(){
         for (int i = 1; i <= 16; i++){
             numbers.add(i);
         }
     }
     private void generateNumbers(){
+        //dastur ishga tushganda va reset bosilganda urinishlar va vaqtni 0 ga qaytarish
         move = 0;
         binding.chronometer.setBase(SystemClock.elapsedRealtime());
         binding.chronometer.stop();
@@ -48,9 +49,10 @@ public class MainActivity extends AppCompatActivity {
         } while (!isSolvable(numbers));
         for (int i = 0; i < binding.gridLayout.getChildCount(); i++){
             if (numbers.get(i) == 16) {
+                //tag 16 ga teng bo'lganda bush btnni indeskini topamiz va textni "" ga tenglaymiz
                 String tag = binding.gridLayout.getChildAt(i).getTag().toString();
-                x = tag.charAt(0) - '0';
-                y = tag.charAt(1) - '0';
+                emptyBtnIndexX = tag.charAt(0) - '0';
+                emptyBtnIndexY = tag.charAt(1) - '0';
                 ((Button) binding.gridLayout.getChildAt(i)).setText("");
                 emptyBtn = ((Button) binding.gridLayout.getChildAt(i));
                 emptyBtn.setVisibility(View.INVISIBLE);
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+    // yutsa bo'lishligini tekshirish
     private boolean isSolvable(List<Integer> numbers){
         int counter = 0;
         for (int i = 0; i < numbers.size(); i++){
@@ -76,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private boolean canMove(int clickedX, int clickedY){
         binding.btnRestart.setBackgroundColor(Color.parseColor("#7FFFD4"));
-        return Math.abs((clickedX + clickedY) - (x + y)) == 1 && Math.abs(clickedX - x) != 2 && Math.abs(clickedY - y) != 2;
+        return Math.abs((clickedX + clickedY) - (emptyBtnIndexX + emptyBtnIndexY)) == 1 && Math.abs(clickedX - emptyBtnIndexX) != 2 && Math.abs(clickedY - emptyBtnIndexY) != 2;
     }
     private boolean gameOver(){
         colorButtons();
@@ -109,8 +112,8 @@ public class MainActivity extends AppCompatActivity {
         emptyBtn.setVisibility(View.VISIBLE);
         emptyBtn.setText(text);
         emptyBtn = clicked;
-        x = clickedX;
-        y = clickedY;
+        emptyBtnIndexX = clickedX;
+        emptyBtnIndexY = clickedY;
     }
     //endregion
     //region start_stop_reset
@@ -172,8 +175,8 @@ public class MainActivity extends AppCompatActivity {
         move++;
         binding.textMove.setText("Move: " + move);
     }
-    private void updateMove(int n){
-        binding.textMove.setText("Move: " + n);
+    private void updateMove(int move){
+        binding.textMove.setText("Move: " + move);
     }
     //endregion
 }
