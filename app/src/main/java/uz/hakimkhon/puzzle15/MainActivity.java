@@ -1,6 +1,7 @@
 package uz.hakimkhon.puzzle15;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -24,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     boolean running = true;
     Button emptyBtn;
 
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         loadNumbers();
         generateNumbers();
         colorButtons();
+
     }
     private void loadNumbers(){
         for (int i = 1; i <= 16; i++){
@@ -79,7 +84,8 @@ public class MainActivity extends AppCompatActivity {
     }
     private boolean canMove(int clickedX, int clickedY){
         binding.btnRestart.setBackgroundColor(Color.parseColor("#7FFFD4"));
-        return Math.abs((clickedX + clickedY) - (emptyBtnIndexX + emptyBtnIndexY)) == 1 && Math.abs(clickedX - emptyBtnIndexX) != 2 && Math.abs(clickedY - emptyBtnIndexY) != 2;
+        return Math.abs((clickedX + clickedY) - (emptyBtnIndexX + emptyBtnIndexY)) == 1 &&
+               Math.abs(clickedX - emptyBtnIndexX) != 2 && Math.abs(clickedY - emptyBtnIndexY) != 2;
     }
     private boolean gameOver(){
         colorButtons();

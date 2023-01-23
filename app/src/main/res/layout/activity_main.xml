@@ -13,26 +13,59 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:gravity="center"
         android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/textMove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:text="Move: 0"
+                android:textSize="24sp"/>
+            <TextView
+                android:visibility="invisible"
+                android:id="@+id/textLeastMove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:paddingStart="40sp"
+                android:paddingEnd="40sp"
+                android:text="The least move: 0"
+                android:textColor="@color/wheat"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/textMove"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4sp"
-            android:textColor="@color/white"
-            android:text="Move: 0"
-            android:textSize="24sp"/>
-        <Chronometer
-            android:id="@+id/chronometer"
-            android:layout_marginStart="50sp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="24sp"
-            android:textColor="@color/white"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+            <Chronometer
+                android:id="@+id/chronometer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:textColor="@color/white"/>
+            <TextView
+                android:visibility="invisible"
+                android:id="@+id/textLeastTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:paddingStart="50sp"
+                android:paddingEnd="50sp"
+                android:text="The least time: 0"
+                android:textColor="@color/wheat"
+                android:textSize="18sp" />
+        </LinearLayout>
     </LinearLayout>
     <GridLayout
         android:id="@+id/gridLayout"
