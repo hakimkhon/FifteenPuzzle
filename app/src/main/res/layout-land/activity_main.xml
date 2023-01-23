@@ -200,32 +200,30 @@
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/btnhome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/btn_click"
-            android:layout_marginBottom="30sp"
-            android:text="@string/home"
-            tools:ignore="UsingOnClickInXml" />
-
-        <Button
-            android:id="@+id/btnRestart"
-            android:onClick="reStart"
-            android:backgroundTint="#686365"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/btn_click"
-            android:layout_alignBaseline="@id/btnhome"
-            android:text="@string/reset" />
-        <Button
             android:id="@+id/btnPause"
             style="@style/btn_click"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30sp"
-            android:layout_alignBaseline="@id/btnhome"
+            android:layout_alignBaseline="@id/btnSettings"
             android:onClick="pauseAndStart"
             android:text="@string/pause" />
+        <Button
+            android:id="@+id/btnRestart"
+            android:onClick="reStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50sp"
+            android:layout_marginBottom="50sp"
+            style="@style/btn_click"
+            android:layout_alignBaseline="@id/btnSettings"
+            android:text="@string/reset" />
+        <Button
+            android:id="@+id/btnSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/btn_click"
+            android:text="@string/settings"
+            tools:ignore="UsingOnClickInXml" />
 
     </LinearLayout>
 

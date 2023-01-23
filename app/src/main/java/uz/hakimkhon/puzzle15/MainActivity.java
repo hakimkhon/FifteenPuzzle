@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         return counter % 2 == 0;
     }
     private boolean canMove(int clickedX, int clickedY){
-        binding.btnRestart.setBackgroundColor(Color.parseColor("#7FFFD4"));
+//        binding.btnRestart.setBackgroundColor(Color.parseColor("#7FFFD4"));
         return Math.abs((clickedX + clickedY) - (emptyBtnIndexX + emptyBtnIndexY)) == 1 &&
                Math.abs(clickedX - emptyBtnIndexX) != 2 && Math.abs(clickedY - emptyBtnIndexY) != 2;
     }
@@ -124,15 +124,10 @@ public class MainActivity extends AppCompatActivity {
     //endregion
     //region start_stop_reset
     public void reStart(View view){
-//        if (move == 0) {
-//        }
-        if (move > 0) {
-            binding.btnRestart.setBackgroundColor(Color.parseColor("#686365"));
-            emptyBtn.setVisibility(View.VISIBLE);
-            generateNumbers();
-            colorButtons();
-            updateMove(move);
-        }
+        emptyBtn.setVisibility(View.VISIBLE);
+        generateNumbers();
+        colorButtons();
+        updateMove(move);
     }
     @SuppressLint("SetTextI18n")
     public void pauseAndStart(View view) {
@@ -172,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
         if (gameOver()){
             Toast.makeText(this, "Siz g'olibsiz", Toast.LENGTH_SHORT).show();
             binding.chronometer.stop();
-
         }
     }
     //endregion
