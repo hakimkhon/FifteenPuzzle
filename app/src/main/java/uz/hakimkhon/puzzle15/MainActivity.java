@@ -1,6 +1,7 @@
 package uz.hakimkhon.puzzle15;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -146,6 +147,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     //endregion
+    public void onClickSettings(View view){
+        Intent intent = new Intent();
+    }
     //region onClick
     @SuppressLint("SetTextI18n")
     public void onClick(View view){
