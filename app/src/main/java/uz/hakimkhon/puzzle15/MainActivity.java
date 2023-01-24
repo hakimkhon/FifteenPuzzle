@@ -39,6 +39,13 @@ public class MainActivity extends AppCompatActivity {
         colorButtons();
 
     }
+
+    @Override
+    protected void onResume() {
+        loadFromShared();
+        super.onResume();
+    }
+
     private void loadNumbers(){
         for (int i = 1; i <= 16; i++){
             numbers.add(i);
@@ -123,13 +130,13 @@ public class MainActivity extends AppCompatActivity {
         emptyBtnIndexY = clickedY;
     }
     //endregion
-    //region start_stop_reset
     public void reStart(View view){
         emptyBtn.setVisibility(View.VISIBLE);
         generateNumbers();
         colorButtons();
         updateMove(move);
     }
+    //region timer
     @SuppressLint("SetTextI18n")
     public void pauseAndStart(View view) {
         if (running) {
@@ -158,12 +165,32 @@ public class MainActivity extends AppCompatActivity {
         binding.chronometer.start();
         super.onStart();
     }
-
     //endregion
+
     public void onClickSettings(View view){
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
+        onStop();
+        saveToShared();
     }
+
+    private void saveToShared() {
+        sharedPreferences = getSharedPreferences("myData", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putInt("toMove", move);
+        editor.putLong("timer", pauseOffset);
+        editor.apply();
+    }
+
+    public void loadFromShared() {
+        sharedPreferences = getSharedPreferences("myData", MODE_PRIVATE);
+        int toMove = sharedPreferences.getInt("toMove", move);
+        long timer = sharedPreferences.getLong("timer", pauseOffset);
+        updateMove(toMove);
+        binding.chronometer.setBase(timer);
+        binding.chronometer.start();
+    }
+
     //region onClick
     @SuppressLint("SetTextI18n")
     public void onClick(View view){

@@ -16,41 +16,40 @@
         android:gravity="center"
         android:padding="16sp"
         android:layout_weight="1">
-
-        <TextView
-            android:id="@+id/textMove"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="Move: 0"
-            android:textSize="24sp"/>
-
-        <TextView
-            android:visibility="invisible"
-            android:id="@+id/textLeastMove"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:layout_marginBottom="30sp"
-            android:text="The least move: 0"
-            android:textColor="@color/wheat"
-            android:textSize="18sp" />
         <Chronometer
             android:id="@+id/chronometer"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30sp"
             android:textStyle="bold"
             android:textSize="24sp"
             android:textColor="@color/white"/>
         <TextView
             android:visibility="invisible"
             android:id="@+id/textLeastTime"
+            android:layout_marginBottom="30sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="The least time: 0"
+            android:textColor="@color/wheat"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textMove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="30sp"
+            android:text="Move: 0"
+            android:textSize="24sp"/>
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/textLeastMove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="The least move: 0"
             android:textColor="@color/wheat"
             android:textSize="18sp" />
     </LinearLayout>

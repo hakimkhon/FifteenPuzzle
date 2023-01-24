@@ -203,11 +203,12 @@
             />
 
     </GridLayout>
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/containerBtn"
         android:layout_width="match_parent"
         android:padding="10sp"
         android:gravity="center"
+        android:orientation="horizontal"
         android:layout_height="0dp"
         android:layout_weight="1">
 
@@ -221,24 +222,24 @@
             tools:ignore="UsingOnClickInXml" />
 
         <Button
+            android:id="@+id/btnRestart"
+            android:onClick="reStart"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="30sp"
+            android:layout_marginEnd="30sp"
+            android:layout_height="wrap_content"
+            style="@style/btn_click"
+            android:text="@string/reset" />
+
+        <Button
             android:id="@+id/btnPause"
             style="@style/btn_click"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:onClick="pauseAndStart"
             android:text="@string/pause" />
 
-        <Button
-            android:id="@+id/btnRestart"
-            android:onClick="reStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/btn_click"
-            android:layout_centerHorizontal="true"
-            android:text="@string/reset" />
-
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </LinearLayout>
