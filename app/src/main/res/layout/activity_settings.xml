@@ -23,10 +23,12 @@
         android:id="@+id/buttonOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="onClickButtonOk"
         android:text="@string/urnatish"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:layout_editor_absoluteX="159dp"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -135,20 +135,34 @@ public class MainActivity extends AppCompatActivity {
         if (running) {
             binding.btnPause.setText("start");
             running = false;
-            binding.chronometer.stop();
-            pauseOffset = SystemClock.elapsedRealtime() - binding.chronometer.getBase();
+            onStop();
             binding.btnPause.setBackgroundColor(Color.parseColor("#F08080"));
         } else {
             binding.btnPause.setText("pause");
             binding.btnPause.setBackgroundColor(Color.parseColor("#7FFFD4"));
             running = true;
-            binding.chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
-            binding.chronometer.start();
+            onStart();
         }
     }
+
+    @Override
+    protected void onStop() {
+        binding.chronometer.stop();
+        pauseOffset = SystemClock.elapsedRealtime() - binding.chronometer.getBase();
+        super.onStop();
+    }
+
+    @Override
+    protected void onStart() {
+        binding.chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+        binding.chronometer.start();
+        super.onStart();
+    }
+
     //endregion
     public void onClickSettings(View view){
-        Intent intent = new Intent();
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
     //region onClick
     @SuppressLint("SetTextI18n")

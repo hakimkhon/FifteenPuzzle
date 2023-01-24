@@ -204,7 +204,6 @@
             style="@style/btn_click"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/btnSettings"
             android:onClick="pauseAndStart"
             android:text="@string/pause" />
         <Button
@@ -215,10 +214,10 @@
             android:layout_marginTop="50sp"
             android:layout_marginBottom="50sp"
             style="@style/btn_click"
-            android:layout_alignBaseline="@id/btnSettings"
             android:text="@string/reset" />
         <Button
             android:id="@+id/btnSettings"
+            android:onClick="onClickSettings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/btn_click"

@@ -213,9 +213,9 @@
 
         <Button
             android:id="@+id/btnSettings"
+            android:onClick="onClickSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             style="@style/btn_click"
             android:text="@string/settings"
             tools:ignore="UsingOnClickInXml" />
@@ -225,9 +225,7 @@
             style="@style/btn_click"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/btnSettings"
             android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"
             android:onClick="pauseAndStart"
             android:text="@string/pause" />
 
@@ -238,7 +236,6 @@
             android:layout_height="wrap_content"
             style="@style/btn_click"
             android:layout_centerHorizontal="true"
-            android:layout_alignBaseline="@id/btnSettings"
             android:text="@string/reset" />
 
     </RelativeLayout>
